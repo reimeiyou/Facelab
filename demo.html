@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Face++ JavaScript SDK</title>
+  </head>
+  <body>
+    <pre id="response">Loading...</pre>
+    <script type="text/javascript" src="facepp-sdk.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+	    $(document).ready(function(){
+       	var apikey, apisecret;
+	$.ajax({
+		url: "php/apisecret.php",
+		cache: false,
+		type: "post",
+		success: function(response){
+			console.log(response);
+			var words = response.split("+");
+			apikey = words[0];
+			apisecret = words[1];
+			var api = new FacePP(apikey, apisecret);
+			var curIp = "http://115.27.84.65/image/";
+			alert(curIp);
+			$.ajax({
+				url: "php/readDir.php",
+				cache: false,
+				type: "post",
+				success: function(dirData){
+					var dirDataJson = $.parseJSON(dirData);
+					for(var i in dirDataJson){
+						console.log(dirDataJson[i]);
+						var subRoute = dirDataJson[i].name;
+						var realDirectory = curIp + subRoute + "/";
+						var fileNum = dirDataJson[i].len;
+						for(var j = 0; j < fileNum; ++j){
+							var realUrl = realDirectory + j + ".jpeg";
+							console.log(realUrl);
+							api.request('detection/detect', {url: realUrl}, function(err, result){
+								if(err){
+									alert(err);
+								}
+								else{
+									var retJson = JSON.stringify(result);
+									console.log(retJson);
+								}
+							});
+						}
+					}	
+					//alert("success");
+				},
+				error: function(xhr){
+					       console.log(xhr);
+				}
+			});
+		},
+		error: function(oxhr){
+			console.log(oxhr);
+		}
+	});
+});
+
+    </script>
+  </body>
+</html>

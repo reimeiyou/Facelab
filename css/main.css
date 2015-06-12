@@ -1,0 +1,25 @@
+/*body,html{font-family: sans-serif; background-color: #000000;}
+div{width: 80%; margin: auto; background-color:#ffffff; padding: 5%; border: 2px solid #990066; text-align: center; border-radius: 10px;}
+canvas {padding: 5%; border: 2px solid #330000; background-color: #660000;border-radius: 10px;}*/
+#download{
+	float: left;
+	cursor: pointer;
+	color: #ccc;
+	padding: 3px;
+}
+#download:hover{
+	color: #eeeeee;
+}
+.demo-body{
+	text-align: center;
+	/*background-color: #FFFF66;*/
+}
+#demo-submit{
+	width: 100px;
+	height: 34px;
+	color: white;
+	letter-spacing: 1px;
+	background: #3385ff;
+	border-bottom: 1px solid #2d78f4;
+	outline: medium;
+}

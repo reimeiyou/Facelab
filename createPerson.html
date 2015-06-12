@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Face++ JavaScript SDK</title>
+  </head>
+  <body>
+    <pre id="response">Loading...</pre>
+    <script type="text/javascript" src="facepp-sdk.min.js"></script>
+    <script type="text/javascript">
+      (function() {
+       	var apikey, apisecret;
+	$.ajax({
+		url: "php/apisecret.php",
+		cache: false,
+		type: "post",
+		success: function(response){
+			console.log(response);
+			var words = response.split("+");
+			apikey = words[0];
+			apisecret = words[1];
+			var api = new FacePP(apikey, apisecret);
+			
+        //var api = new FacePP('0ef14fa726ce34d820c5a44e57fef470', '4Y9YXOMSDvqu1Ompn9NSpNwWQFHs1hYD');
+        api.request('detection/detect', {
+	    url: 'http://115.27.87.171/image.png'
+        }, function(err, result) {
+          if (err) {
+            // TODO handle error
+            return;
+          }
+          // TODO use result
+	  alert(result);
+          document.getElementById('response').innerHTML = JSON.stringify(result, null, 2);
+        });
+      })();
+    </script>
+  </body>
+</html>

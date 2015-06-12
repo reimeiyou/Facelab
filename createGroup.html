@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Create Face Group</title>
+		<script src = "js/jquery.min.js"></script>
+		<script src = "js/jquery-1.11.3.js"></script>
+		<script src = "js/facepp-sdk.min.js"></script>
+		<script src = "js/facepp-sdk.js"></script>
+	</head>
+	<body>
+		<pre id="response">Loading...</pre>
+		<script type="text/javascript">
+			(function(){
+				/*var apiid;
+				var apisecret;
+				$.ajax({
+					url: "php/apisecret.php",
+					type:"POST",
+					success: function(data){
+						var words = data.split("+");
+						var apikey = words[0];
+						var apisecret = words[1];
+						var api = new FacePP(apikey, apisecret);
+						api.request('group/create', {group_name: Physics},function(err, result){
+
+					},
+					error: function(xhr){
+						alert("get apikey error!");
+					}
+				});*/
+				var apikey, apisecret;
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						var text = xhr.responseText;
+						var words = text.split("+");
+						apikey = words[0];
+						apisecret = words[1];
+					}
+				}
+				xhr.open('GET', 'http://localhost/php/apisecret.php', false);
+				xhr.send();
+				alert(apikey);
+				alert(apisecret);
+				var initialurl = "https://apicn.faceplusplus.com/v2/faceset/create?api_key=";
+				initialurl += apikey;
+				initialurl += "&api_secret=";
+				initialurl += apisecret;
+				initialurl += "&tag=\"ComputerScience\"&faceset_name=\"ComputerScience\"";
+				alert(initialurl);
+				var realurl = encodeURIComponent(initialurl);
+				var api = new FacePP(apikey, apisecret);
+				api.request('faceset/create', {url: realurl, faceset_name: 'ComputerScience', tag:'CreatedByMinglotus'}, function(err,result){
+						if(err){
+							alert("error!");
+						}
+						else{
+							alert(result);
+						}
+				});
+			})();
+		</script>
+	</body>
+</html>

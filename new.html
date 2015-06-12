@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<title>测专业</title> 
+	</head> 
+	<body class='demo-body'>
+
+		<h1>测测你最适合学哪个专业</h1>
+
+		<img id='output' width='400em' height='440em' alt='请点击下面的按钮上传图片'><br />
+		<form>
+			<input type='file' accept='image/*' onchange='openFile(event)'><br /><br /><br />
+			<input type='submit' value='开始测试' id='demo-submit'>
+		</form>
+		
+		<script>
+  		var openFile = function(event) {
+    		var input = event.target;
+
+    		var reader = new FileReader();
+    		reader.onload = function(){
+      			var dataURL = reader.result;
+      			var output = document.getElementById('output');
+      			output.src = dataURL;
+    		};
+    		reader.readAsDataURL(input.files[0]);
+  		};
+		</script>
+	</body> 
+</html> 
